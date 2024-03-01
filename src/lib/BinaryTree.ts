@@ -39,4 +39,8 @@ export class BinaryTree {
     }
     return root;
   }
+
+  getHeight(): number {
+    return this.root?.getHeight() || 0;
+  }
 }
