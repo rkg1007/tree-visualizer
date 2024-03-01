@@ -14,6 +14,7 @@ export default function Home() {
       canvas.current.height = window.innerHeight;
       canvas.current.width = window.innerWidth;
       const context = canvas.current.getContext("2d");
+      context?.clearRect(0, 0, window.innerWidth, window.innerHeight);
       drawTree(context, input);
     }
   };
@@ -29,10 +30,7 @@ export default function Home() {
           placeholder="Enter Your Input Here..."
         ></textarea>
       </div>
-      <canvas
-        ref={canvas}
-        className="canvas"
-      ></canvas>
+      <canvas ref={canvas} className="canvas"></canvas>
     </div>
   );
 }
