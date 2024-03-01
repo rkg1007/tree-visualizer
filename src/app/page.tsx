@@ -11,6 +11,8 @@ export default function Home() {
   const handleInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const input = e.target.value;
     if (isValidInput(input) && canvas.current) {
+      canvas.current.height = window.innerHeight;
+      canvas.current.width = window.innerWidth;
       const context = canvas.current.getContext("2d");
       drawTree(context, input);
     }
@@ -30,8 +32,6 @@ export default function Home() {
       <canvas
         ref={canvas}
         className="canvas"
-        height={window.innerHeight}
-        width={window.innerWidth}
       ></canvas>
     </div>
   );
