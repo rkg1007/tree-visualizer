@@ -11,27 +11,76 @@ export const drawTree = (
   context.reset();
   const parsedInput = parseInput(input);
   const tree = new BinaryTree(parsedInput);
+  const treeHeight = tree.getHeight();
+  const possibleTreeWidth = Math.pow(2, treeHeight - 1);
 
   const canvasWidth = context.canvas.width;
+  const requiredCanvasWidth = possibleTreeWidth * NODE_WIDTH;
 
   const root = tree.root;
-  const rootXStart = canvasWidth / 2 - NODE_WIDTH / 2;
-  const rootXEnd = canvasWidth / 2 + NODE_WIDTH / 2;
+  const requiredCanvasStartPoint = canvasWidth / 2 - requiredCanvasWidth / 2;
+  const requiredCanvasEndPoint = canvasWidth / 2 + requiredCanvasWidth / 2;
 
-  drawNodeRecursively(context, root, rootXStart, rootXEnd, 0.5);
+  drawNodeRecursively(
+    context,
+    root,
+    requiredCanvasStartPoint,
+    requiredCanvasEndPoint,
+    0.5
+  );
 };
 
 const drawNodeRecursively = (
   context: CanvasRenderingContext2D,
   node: BinaryTreeNode | null,
-  nodeXStart: number,
-  nodeXEnd: number,
+  canvasStart: number,
+  canvasEnd: number,
   nodelevel: number
 ) => {
-  if (node == null) return;
-  const x = (nodeXStart + nodeXEnd) / 2;
+  if (node == null) return [0, 0];
+  const x = (canvasStart + canvasEnd) / 2;
   const y = nodelevel * NODE_HEIGHT;
   drawNode(context, node.val, x, y);
+
+  if (node.left) {
+    const leftChild = node.left;
+    const leftChildCanvasStart = canvasStart;
+    const leftChildCanvasEnd = x;
+    const [leftChildX, leftChildY] = drawNodeRecursively(
+      context,
+      leftChild,
+      leftChildCanvasStart,
+      leftChildCanvasEnd,
+      nodelevel + 1
+    );
+
+    const edgeXStart = x;
+    const edgeYStart = y + RADIUS;
+    const edgeXEnd = leftChildX;
+    const edgeYEnd = leftChildY - RADIUS;
+    drawEdge(context, edgeXStart, edgeYStart, edgeXEnd, edgeYEnd);
+  }
+
+  if (node.right) {
+    const rightChild = node.right;
+    const rightChildCanvasStart = x;
+    const rightChildCanvasEnd = canvasEnd;
+    const [rightChildX, rightChildY] = drawNodeRecursively(
+      context,
+      rightChild,
+      rightChildCanvasStart,
+      rightChildCanvasEnd,
+      nodelevel + 1
+    );
+
+    const edgeXStart = x;
+    const edgeYStart = y + RADIUS;
+    const edgeXEnd = rightChildX;
+    const edgeYEnd = rightChildY - RADIUS;
+    drawEdge(context, edgeXStart, edgeYStart, edgeXEnd, edgeYEnd);
+  }
+
+  return [x, y];
 };
 
 const drawNode = (
@@ -57,4 +106,17 @@ const drawNode = (
   context.fillStyle = "yellow";
   context.textAlign = "center";
   context.fillText(value, x, y + FONT_SIZE / 2);
+};
+
+const drawEdge = (
+  context: CanvasRenderingContext2D,
+  xStart: number,
+  yStart: number,
+  xEnd: number,
+  yEnd: number
+) => {
+  context.beginPath();
+  context.moveTo(xStart, yStart);
+  context.lineTo(xEnd, yEnd);
+  context.stroke();
 };
