@@ -2,7 +2,7 @@ export const parseInput = (input: string): (number | null)[] => {
   const arr: any[] = input.split(",");
   for (let i = 0; i < arr.length; i++) {
     const val = arr[i];
-    if (val.length == 0 || Number.isNaN(val)) {
+    if (val.length == 0 || Number.isNaN(Number(val))) {
       arr[i] = null;
     } else {
       arr[i] = Number(val);
@@ -20,7 +20,7 @@ export const isValidInput = (input: string): boolean => {
 
   // root value must not be empty or null
   const rootVal = arr[0];
-  if (rootVal.length == 0 || Number.isNaN(arr[0])) return false;
+  if (rootVal.length == 0 || Number.isNaN(Number(arr[0]))) return false;
 
   return true;
 };
