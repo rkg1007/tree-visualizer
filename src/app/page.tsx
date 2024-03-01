@@ -10,12 +10,14 @@ export default function Home() {
 
   const handleInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const input = e.target.value;
-    if (isValidInput(input) && canvas.current) {
+    if (canvas.current) {
       canvas.current.height = window.innerHeight;
       canvas.current.width = window.innerWidth;
       const context = canvas.current.getContext("2d");
       context?.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      drawTree(context, input);
+      if (isValidInput(input)) {
+        drawTree(context, input);
+      }
     }
   };
 
