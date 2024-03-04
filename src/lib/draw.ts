@@ -115,8 +115,9 @@ const drawEdge = (
   xEnd: number,
   yEnd: number
 ) => {
+  const yMiddle = (yStart + yEnd) / 2;
   context.beginPath();
   context.moveTo(xStart, yStart);
-  context.lineTo(xEnd, yEnd);
+  context.bezierCurveTo(xStart, yMiddle, xEnd, yMiddle, xEnd, yEnd);
   context.stroke();
 };
