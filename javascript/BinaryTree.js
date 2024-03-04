@@ -1,20 +1,18 @@
-import { BinaryTreeNode } from "./BinaryTreeNode";
+import { BinaryTreeNode } from "./BinaryTreeNode.js";
 
 export class BinaryTree {
-  root: BinaryTreeNode | null;
-
-  constructor(arr: (number | null)[]) {
+  constructor(arr) {
     this.root = this.constructTree(arr);
   }
 
-  constructTree(arr: (number | null)[]) {
+  constructTree(arr) {
     const rootVal = arr[0];
     if (rootVal == null) return null;
     const root = new BinaryTreeNode(rootVal);
-    let currLevel: BinaryTreeNode[] = [root];
+    let currLevel = [root];
     let currArrIdx = 1;
     while (currLevel.length > 0) {
-      const nextLevel: BinaryTreeNode[] = [];
+      const nextLevel = [];
       for (let currNode of currLevel) {
         if (currArrIdx < arr.length) {
           const currArrIdxVal = arr[currArrIdx];
@@ -40,7 +38,7 @@ export class BinaryTree {
     return root;
   }
 
-  getHeight(): number {
+  getHeight() {
     return this.root?.getHeight() || 0;
   }
 }

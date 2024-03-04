@@ -1,7 +1,14 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 .input-container {
   width: 100%;
   display: flex;
   justify-content: center;
+  gap: 10px;
 }
 
 .input-box {
@@ -10,6 +17,17 @@
   background-color: lightgreen;
   text-align: center;
   margin: 5px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-button {
+  padding: 2px;
 }
 
 .canvas {
