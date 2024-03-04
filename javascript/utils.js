@@ -1,17 +1,18 @@
-export const parseInput = (input: string): (number | null)[] => {
-  const arr: any[] = input.split(",");
+export const parseInput = (input) => {
+  const arr = input.split(",");
   for (let i = 0; i < arr.length; i++) {
     const val = arr[i];
-    if (val.length == 0 || Number.isNaN(Number(val))) {
+    const trimmedVal = val.trim();
+    if (trimmedVal.length == 0 || Number.isNaN(Number(trimmedVal))) {
       arr[i] = null;
     } else {
-      arr[i] = Number(val);
+      arr[i] = Number(trimmedVal);
     }
   }
   return arr;
 };
 
-export const isValidInput = (input: string): boolean => {
+export const isValidInput = (input) => {
   // remove extra space
   const trimmedInput = input.trim();
 

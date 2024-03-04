@@ -1,23 +1,19 @@
 export class BinaryTreeNode {
-  val: number;
-  left: BinaryTreeNode | null;
-  right: BinaryTreeNode | null;
-
-  constructor(val: number) {
+  constructor(val) {
     this.val = val;
     this.left = null;
     this.right = null;
   }
 
-  setLeft(leftNode: BinaryTreeNode) {
+  setLeft(leftNode) {
     this.left = leftNode;
   }
 
-  setRight(rightNode: BinaryTreeNode) {
+  setRight(rightNode) {
     this.right = rightNode;
   }
 
-  getHeight(): number {
+  getHeight() {
     const leftHeight = this.left?.getHeight() || 0;
     const rightHeight = this.right?.getHeight() || 0;
     return Math.max(leftHeight, rightHeight) + 1;
